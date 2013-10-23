@@ -9,7 +9,7 @@
   Game.DIM_X = 1000;
   Game.DIM_Y = 1000;
 
-  Game.prototype.initAsteroids(numAsteroids) {
+  Game.prototype.initAsteroids = function (numAsteroids) {
     var asteroids = []
     for(var i = 0; i< numAsteroids; i++) {
       asteroids.push(Asteroids.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
@@ -42,6 +42,6 @@
     var that = this;
     window.setInterval(function() {
       that.step();
-    }, 3000);
+    }, 50);
   }
 })();

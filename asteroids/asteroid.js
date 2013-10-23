@@ -2,7 +2,7 @@
   var Asteroids = window.Asteroids = (window.Asteroids || {});
 
   var Asteroid = Asteroids.Asteroid = function (pos, vel, radius) {
-    MovingObject.call(this, pos, vel, radius, Asteroid.COLOR)
+    Asteroids.MovingObject.call(this, pos, vel, radius, Asteroid.COLOR)
   };
 
   Asteroid.inherits(Asteroids.MovingObject);
@@ -25,6 +25,8 @@
       Math.floor(Math.random() * dimY)
     ];
     var velocity = randomVel(1, 5);
+
+    return new Asteroid(pos, velocity, Asteroid.RADIUS);
   }
 
 
