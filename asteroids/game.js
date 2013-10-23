@@ -47,48 +47,33 @@
     });
   }
 
-  Game.prototype.moveAsteroids = function() {
-    var badAsteroids = [];
-    for (var i = 0; i < this.asteroids.length; i++) {
-      var asteroid = this.asteroids[i]
-      asteroid.move();
-      if (asteroid.pos[0] < 0 || asteroid.pos[0] > Game.DIM_X ||
-          asteroid.pos[1] < 0 || asteroid.pos[1] > Game.DIM_Y) {
-            badAsteroids.push(asteroid)
+  Game.prototype.moveObjects = function(movingObjects) {
+    var badObjects = [];
+    for (var i = 0; i < movingObjects.length; i++) {
+      var object = movingObjects[i]
+      object.move();
+      if (this.isOutOfBounds(object)) {
+            badObjects.push(object);
       }
     }
 
-    var that = this;
-
-    badAsteroids.forEach(function(asteroid) {
-      var asteroidIndex = that.asteroids.indexOf(asteroid);
-      that.asteroids.splice(asteroidIndex, 1);
+    badObjects.forEach(function(object) {
+      var index = movingObjects.indexOf(object);
+      movingObjects.splice(index, 1);
     })
   }
 
-  Game.prototype.moveBullets = function() {
-    var badBullets = [];
-    for (var i = 0; i < this.bullets.length; i++) {
-      var bullet = this.bullets[i]
-      bullet.move();
-      if (bullet.pos[0] < 0 || bullet.pos[0] > Game.DIM_X ||
-          bullet.pos[1] < 0 || bullet.pos[1] > Game.DIM_Y) {
-            badBullets.push(bullet);
-      }
-    }
-
-    var that = this;
-
-    badBullets.forEach(function(bullet) {
-      var bulletIndex = that.bullets.indexOf(bullet);
-      that.bullets.splice(bulletIndex, 1);
-    })
+  Game.prototype.isOutOfBounds = function(movingObject) {
+    return movingObject.pos[0] < 0 ||
+           movingObject.pos[0] > Game.DIM_X ||
+           movingObject.pos[1] < 0 ||
+           movingObject.pos[1] > Game.DIM_Y
   }
 
   Game.prototype.move = function() {
-    this.moveAsteroids();
+    this.moveObjects(this.asteroids);
     this.ship.move();
-    this.moveBullets();
+    this.moveObjects(this.bullets);
     this.hitAsteroids();
   }
 
