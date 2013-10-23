@@ -10,8 +10,8 @@
     console.log(this.ship)
   }
 
-  Game.DIM_X = 1000;
-  Game.DIM_Y = 1000;
+  Game.DIM_X = 500;
+  Game.DIM_Y = 500;
 
   Game.prototype.initAsteroids = function (numAsteroids) {
     var asteroids = []
@@ -42,11 +42,27 @@
     this.ship.draw(that.ctx);
   }
 
-  Game.prototype.move = function() {
-    this.asteroids.forEach(function(asteroid) {
+  Game.prototype.moveAsteroids = function() {
+    var badAsteroids = [];
+    for (var i = 0; i < this.asteroids.length; i++) {
+      var asteroid = this.asteroids[i]
       asteroid.move();
-    });
+      if (asteroid.pos[0] < 0 || asteroid.pos[0] > Game.DIM_X ||
+          asteroid.pos[1] < 0 || asteroid.pos[1] > Game.DIM_Y) {
+            badAsteroids.push(asteroid)
+      }
+    }
 
+    var that = this;
+
+    badAsteroids.forEach(function(asteroid) {
+      var asteroidIndex = that.asteroids.indexOf(asteroid);
+      that.asteroids.splice(asteroidIndex, 1);
+    })
+  }
+
+  Game.prototype.move = function() {
+    this.moveAsteroids();
     this.ship.move();
   }
 
@@ -59,6 +75,7 @@
 
   Game.prototype.start = function() {
     var that = this;
+    this.bindKeyHandlers();
     this.timerId = window.setInterval(function() {
       that.step();
     }, 50);
@@ -66,5 +83,21 @@
 
   Game.prototype.stop = function() {
     window.clearInterval(this.timerId);
+  }
+
+  Game.prototype.bindKeyHandlers = function() {
+    var that = this
+    key('up', function () {
+      that.ship.power([0, -1]);
+    });
+    key('down', function () {
+      that.ship.power([0, 1]);
+    });
+    key('left', function () {
+      that.ship.power([-1, 0]);
+    });
+    key('right', function () {
+      that.ship.power([1, 0]);
+    });
   }
 })();
