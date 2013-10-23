@@ -11,7 +11,7 @@
 
   Game.prototype.initAsteroids = function (numAsteroids) {
     var asteroids = []
-    for(var i = 0; i< numAsteroids; i++) {
+    for(var i = 0; i < numAsteroids; i++) {
       asteroids.push(Asteroids.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
     }
 
