@@ -7,7 +7,8 @@
 
     var shipPos = [Math.floor(Game.DIM_X / 2), Math.floor(Game.DIM_Y / 2)];
     this.ship = new Asteroids.Ship(shipPos, [0, 0]);
-    console.log(this.ship)
+
+    this.bullets = [];
   }
 
   Game.DIM_X = 500;
@@ -40,6 +41,10 @@
     });
 
     this.ship.draw(that.ctx);
+
+    this.bullets.forEach(function(bullet) {
+      bullet.draw(that.ctx);
+    });
   }
 
   Game.prototype.moveAsteroids = function() {
@@ -61,9 +66,29 @@
     })
   }
 
+  Game.prototype.moveBullets = function() {
+    var badBullets = [];
+    for (var i = 0; i < this.bullets.length; i++) {
+      var bullet = this.bullets[i]
+      bullet.move();
+      if (bullet.pos[0] < 0 || bullet.pos[0] > Game.DIM_X ||
+          bullet.pos[1] < 0 || bullet.pos[1] > Game.DIM_Y) {
+            badBullets.push(bullet);
+      }
+    }
+
+    var that = this;
+
+    badBullets.forEach(function(bullet) {
+      var bulletIndex = that.bullets.indexOf(bullet);
+      that.bullets.splice(bulletIndex, 1);
+    })
+  }
+
   Game.prototype.move = function() {
     this.moveAsteroids();
     this.ship.move();
+    this.moveBullets();
   }
 
   Game.prototype.step = function() {
@@ -71,6 +96,13 @@
     this.draw();
 
     this.checkCollisions();
+  }
+
+  Game.prototype.fireBullet = function() {
+    var bullet = this.ship.fireBullet();
+    if (bullet) {
+      this.bullets.push(bullet);
+    }
   }
 
   Game.prototype.start = function() {
@@ -98,6 +130,10 @@
     });
     key('right', function () {
       that.ship.power([1, 0]);
+    });
+
+    key('space', function () {
+      that.fireBullet();
     });
   }
 })();
