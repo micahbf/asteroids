@@ -89,6 +89,7 @@
     this.moveAsteroids();
     this.ship.move();
     this.moveBullets();
+    this.hitAsteroids();
   }
 
   Game.prototype.step = function() {
@@ -103,6 +104,28 @@
     if (bullet) {
       this.bullets.push(bullet);
     }
+  }
+
+  Game.prototype.hitAsteroids = function() {
+    var that = this
+    var badAsteroids = [];
+    var badBullets = [];
+    this.bullets.forEach(function(bullet) {
+      that.asteroids.forEach(function(asteroid) {
+        if (bullet.isCollidedWith(asteroid)) {
+          badAsteroids.push(asteroid);
+          badBullets.push(bullet)
+        }
+      })
+      badAsteroids.forEach(function(asteroid) {
+        var asteroidIndex = that.asteroids.indexOf(asteroid);
+        that.asteroids.splice(asteroidIndex, 1);
+      })
+    })
+    badBullets.forEach(function(bullet) {
+      var bulletIndex = that.bullets.indexOf(bullet);
+      that.bullets.splice(bulletIndex, 1);
+    })
   }
 
   Game.prototype.start = function() {
