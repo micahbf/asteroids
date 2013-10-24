@@ -134,10 +134,10 @@
       that.ship.power([0, 1]);
     });
     key('left', function () {
-      that.ship.power([-1, 0]);
+      that.ship.changeDirection(-1);
     });
     key('right', function () {
-      that.ship.power([1, 0]);
+      that.ship.changeDirection(1);
     });
 
     key('space', function () {
