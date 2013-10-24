@@ -114,16 +114,18 @@
           badAsteroids.push(asteroid);
           badBullets.push(bullet)
         }
-      })
-      badAsteroids.forEach(function(asteroid) {
-        var asteroidIndex = that.asteroids.indexOf(asteroid);
-        that.asteroids.splice(asteroidIndex, 1);
-      })
-    })
+      });
+    });
+
+    badAsteroids.forEach(function(asteroid) {
+      var asteroidIndex = that.asteroids.indexOf(asteroid);
+      that.asteroids.splice(asteroidIndex, 1);
+    });
+
     badBullets.forEach(function(bullet) {
       var bulletIndex = that.bullets.indexOf(bullet);
       that.bullets.splice(bulletIndex, 1);
-    })
+    });
   }
 
   Game.prototype.start = function() {
@@ -131,7 +133,7 @@
     this.bindKeyHandlers();
     this.timerId = window.setInterval(function() {
       that.step();
-    }, 70);
+    }, 33);
   }
 
   Game.prototype.stop = function() {

@@ -24,8 +24,8 @@
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
 
-    this.vel[0] *= 0.9;
-    this.vel[1] *= 0.9;
+    this.vel[0] *= 0.95;
+    this.vel[1] *= 0.95;
   }
 
   Ship.prototype.changeDirection = function(direction) {

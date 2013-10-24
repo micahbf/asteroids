@@ -24,7 +24,7 @@
       Math.floor(Math.random() * dimX),
       Math.floor(Math.random() * dimY)
     ];
-    var velocity = randomVel(1, 5);
+    var velocity = randomVel(1, 3);
 
     return new Asteroid(pos, velocity, Asteroid.RADIUS);
   }
