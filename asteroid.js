@@ -19,11 +19,26 @@
     return [(xSign * xMagnitude), (ySign * yMagnitude)];
   }
 
+  var randomStartPos = function(dimX, dimY) {
+    //generate new startPos which is not too close to ship startPos (center)
+    var pos = [];
+    var lastRand = Math.floor(Math.random() * dimX)
+    while(lastRand > (dimX / 2 + 25) && lastRand < (dimX / 2 - 25)) {
+      lastRand = Math.floor(Math.random() * dimX);
+    }
+    pos.push(lastRand);
+
+    lastRand = Math.floor(Math.random() * dimY)
+    while(lastRand > (dimX / 2 + 25) && lastRand < (dimY / 2 - 25)) {
+      lastRand = Math.floor(Math.random() * dimY);
+    }
+    pos.push(lastRand);
+
+    return pos;
+  }
+
   Asteroid.randomAsteroid = function (dimX, dimY) {
-    var pos = [
-      Math.floor(Math.random() * dimX),
-      Math.floor(Math.random() * dimY)
-    ];
+    var pos = randomStartPos(dimX, dimY);
     var velocity = randomVel(1, 3);
 
     return new Asteroid(pos, velocity, Asteroid.RADIUS);
