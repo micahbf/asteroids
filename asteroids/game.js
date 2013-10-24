@@ -47,20 +47,25 @@
     });
   }
 
-  Game.prototype.moveObjects = function(movingObjects) {
-    var badObjects = [];
+  Game.prototype.moveObjects = function(movingObjects, wrapIfOutOfBounds) {
+    var badObjects = []
     for (var i = 0; i < movingObjects.length; i++) {
       var object = movingObjects[i]
       object.move();
       if (this.isOutOfBounds(object)) {
-            badObjects.push(object);
+        if(wrapIfOutOfBounds) {
+          this.wrapObject(object);
+        } else {
+          badObjects.push(object);
+        }
       }
     }
 
-    badObjects.forEach(function(object) {
-      var index = movingObjects.indexOf(object);
-      movingObjects.splice(index, 1);
-    })
+    // remove the bullets that go off the board
+    for(var i = 0; i < badObjects.length; i++) {
+      var object = badObjects[i];
+      movingObjects.slice(movingObjects.indexOf(object), 1);
+    }
   }
 
   Game.prototype.isOutOfBounds = function(movingObject) {
@@ -70,10 +75,18 @@
            movingObject.pos[1] > Game.DIM_Y
   }
 
+  Game.prototype.wrapObject = function(object) {
+    object.pos[0] += Game.DIM_Y;
+    object.pos[0] %= Game.DIM_Y;
+    object.pos[1] += Game.DIM_X;
+    object.pos[1] %= Game.DIM_X;
+  }
+
   Game.prototype.move = function() {
-    this.moveObjects(this.asteroids);
+    this.moveObjects(this.asteroids, true);
     this.ship.move();
-    this.moveObjects(this.bullets);
+    this.wrapObject(this.ship);
+    this.moveObjects(this.bullets, false);
     this.hitAsteroids();
   }
 
@@ -118,7 +131,7 @@
     this.bindKeyHandlers();
     this.timerId = window.setInterval(function() {
       that.step();
-    }, 50);
+    }, 70);
   }
 
   Game.prototype.stop = function() {

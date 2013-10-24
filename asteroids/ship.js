@@ -27,20 +27,10 @@
   }
 
   Ship.prototype.fireBullet = function() {
-    if(this.vel[0] === 0 && this.vel[1] === 0) {
-      return null;
-    }
-
-    var denominator;
-    if (Math.abs(this.vel[0]) > Math.abs(this.vel[1])) {
-      denominator = this.vel[0];
-    } else {
-      denominator = this.vel[1];
-    }
-    denominator = Math.abs(denominator);
-
-    var direction = [(this.vel[0] / denominator), (this.vel[1] / denominator)];
-    var velocity = direction.map(function(elem) {
+    var rotationAngle = -(this.angle + Math.PI /2)
+    var nx = Math.sin(rotationAngle);
+    var ny = -Math.cos(rotationAngle);
+    var velocity = [ny, nx].map(function(elem) {
       return Math.floor(elem * Asteroids.Bullet.SPEED);
     });
 
