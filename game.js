@@ -143,10 +143,7 @@
   Game.prototype.bindKeyHandlers = function() {
     var that = this
     key('up', function () {
-      that.ship.power([0, -1]);
-    });
-    key('down', function () {
-      that.ship.power([0, 1]);
+      that.ship.power();
     });
     key('left', function () {
       that.ship.changeDirection(-1);
