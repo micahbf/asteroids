@@ -9,5 +9,5 @@
 
   Bullet.SPEED = 5;
   Bullet.RADIUS = 2;
-  Bullet.COLOR = "black";
+  Bullet.COLOR = "red";
 })();

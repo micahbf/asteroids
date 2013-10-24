@@ -8,7 +8,7 @@
   Asteroid.inherits(Asteroids.MovingObject);
 
   Asteroid.RADIUS = 25;
-  Asteroid.COLOR = "red";
+  Asteroid.COLOR = "yellow";
 
   var randomVel = function (min, max) {
     var xSign = (Math.random() > 0.5) ? 1 : -1;
