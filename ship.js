@@ -36,11 +36,12 @@
   }
 
   Ship.prototype.fireBullet = function() {
-    var rotationAngle = -(this.angle + Math.PI /2)
+    var rotationAngle = -(this.angle + Math.PI / 2)
     var nx = Math.sin(rotationAngle);
     var ny = -Math.cos(rotationAngle);
-    var velocity = [ny, nx].map(function(elem) {
-      return Math.floor(elem * Asteroids.Bullet.SPEED);
+    var ship = this;
+    var velocity = [ny, nx].map(function(elem, i) {
+      return Math.floor(elem * Asteroids.Bullet.SPEED + ship.vel[i]);
     });
 
     var position = [this.pos[0], this.pos[1]];
