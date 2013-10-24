@@ -11,6 +11,7 @@
 
   Ship.RADIUS = 8;
   Ship.COLOR = "green";
+  Ship.INERTIA = 1;
 
   Ship.prototype.power = function() {
     var rotationAngle = -(this.angle + Math.PI /2)
@@ -24,8 +25,8 @@
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
 
-    this.vel[0] *= 0.95;
-    this.vel[1] *= 0.95;
+    this.vel[0] *= Ship.INERTIA;
+    this.vel[1] *= Ship.INERTIA;
   }
 
   Ship.prototype.changeDirection = function(direction) {
