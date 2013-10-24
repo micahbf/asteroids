@@ -14,7 +14,6 @@
   }
 
   MovingObject.prototype.draw = function(ctx) {
-    ctx.fillStyle = this.color;
     ctx.beginPath();
 
     ctx.arc(
@@ -26,7 +25,9 @@
       false
     );
 
-    ctx.fill();
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = 2;
+    ctx.stroke();
   }
 
   MovingObject.prototype.isCollidedWith = function(otherObject) {
