@@ -20,6 +20,14 @@
     this.vel[1] += nx;
   }
 
+  Ship.prototype.move = function() {
+    this.pos[0] += this.vel[0];
+    this.pos[1] += this.vel[1];
+
+    this.vel[0] *= 0.9;
+    this.vel[1] *= 0.9;
+  }
+
   Ship.prototype.changeDirection = function(direction) {
     this.angle += direction * 0.6;
     this.angle += (2 * Math.PI);
