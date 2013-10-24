@@ -23,13 +23,13 @@
     //generate new startPos which is not too close to ship startPos (center)
     var pos = [];
     var lastRand = Math.floor(Math.random() * dimX)
-    while(lastRand > (dimX / 2 + 25) && lastRand < (dimX / 2 - 25)) {
+    while(lastRand > (dimX / 2 - 50) && lastRand < (dimX / 2 + 50)) {
       lastRand = Math.floor(Math.random() * dimX);
     }
     pos.push(lastRand);
 
     lastRand = Math.floor(Math.random() * dimY)
-    while(lastRand > (dimX / 2 + 25) && lastRand < (dimY / 2 - 25)) {
+    while(lastRand > (dimX / 2 - 50) && lastRand < (dimY / 2 + 50)) {
       lastRand = Math.floor(Math.random() * dimY);
     }
     pos.push(lastRand);
