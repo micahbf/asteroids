@@ -9,8 +9,8 @@
 
   Ship.inherits(Asteroids.MovingObject);
 
-  Ship.RADIUS = 10;
-  Ship.COLOR = "blue";
+  Ship.RADIUS = 8;
+  Ship.COLOR = "green";
 
   Ship.prototype.power = function() {
     var rotationAngle = -(this.angle + Math.PI /2)
@@ -50,15 +50,16 @@
     ctx.translate(this.pos[0], this.pos[1]);
     ctx.rotate(this.angle);
 
-    ctx.fillStyle = this.color;
     ctx.beginPath();
 
-    ctx.moveTo(0, -7);
-    ctx.lineTo(-3, 3);
-    ctx.lineTo(3, 3);
+    ctx.moveTo(0, -20);
+    ctx.lineTo(-10, 10);
+    ctx.lineTo(10, 10);
     ctx.closePath();
 
-    ctx.fill();
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = 2;
+    ctx.stroke();
 
     ctx.rotate(0 - this.angle);
     ctx.translate(0-this.pos[0], 0-this.pos[1]);
