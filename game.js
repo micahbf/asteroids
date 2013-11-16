@@ -112,7 +112,7 @@
       that.asteroids.forEach(function(asteroid) {
         if (bullet.isCollidedWith(asteroid)) {
           badAsteroids.push(asteroid);
-          badBullets.push(bullet)
+          badBullets.push(bullet);
         }
       });
     });
