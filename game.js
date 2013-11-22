@@ -142,17 +142,21 @@
 
   Game.prototype.bindKeyHandlers = function() {
     var that = this
-    key('up', function () {
+    key('up', function (e) {
+      e.preventDefault();
       that.ship.power();
     });
-    key('left', function () {
+    key('left', function (e) {
+      e.preventDefault();
       that.ship.changeDirection(-1);
     });
-    key('right', function () {
+    key('right', function (e) {
+      e.preventDefault();
       that.ship.changeDirection(1);
     });
 
-    key('space', function () {
+    key('space', function (e) {
+      e.preventDefault();
       that.fireBullet();
     });
   }
